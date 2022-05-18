@@ -1,7 +1,6 @@
-import 'package:eyesu/utils/colors.dart';
-import 'package:eyesu/utils/dimension.dart';
+import 'package:eyesu_project/utils/colors.dart';
+import 'package:eyesu_project/utils/dimension.dart';
 import 'package:flutter/material.dart';
-
 class ResponsiveLayout extends StatelessWidget {
   final Widget webScreenLayout;
   final Widget mobileScreenLayout;

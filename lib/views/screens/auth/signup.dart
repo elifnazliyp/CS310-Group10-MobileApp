@@ -1,3 +1,4 @@
+import 'package:eyesu_project/controllers/auth_controllers.dart';
 import 'package:eyesu_project/views/screens/auth/login_screen.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -5,7 +6,17 @@ import 'package:flutter/material.dart';
 
 import '../../../const.dart';
 
-class Signup extends StatelessWidget {
+class Signup extends StatefulWidget {
+  @override
+  State<Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<Signup> {
+  final TextEditingController _username = TextEditingController();
+
+  final TextEditingController _email = TextEditingController();
+
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +40,14 @@ class Signup extends StatelessWidget {
                     bottom:-10,
                     left:80,
                     child: IconButton(
-                    onPressed: () {
-                    
-                  },
+                    onPressed: () => authController.pickImage(),
                   icon:Icon(Icons.add_a_photo),
                   ))
                 ],
               ),
               SizedBox(height: 20,),
               TextField(
+                controller: _username,
                 decoration:InputDecoration(
                   border:OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -48,6 +58,7 @@ class Signup extends StatelessWidget {
               ),
               SizedBox(height: 20,),
               TextField(
+                controller: _email,
                 decoration:InputDecoration(
                   border:OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -58,6 +69,8 @@ class Signup extends StatelessWidget {
               ),
               SizedBox(height: 20,),
               TextField(
+                obscureText: true,
+                controller: _password,
                 decoration:InputDecoration(
                   border:OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -74,12 +87,15 @@ class Signup extends StatelessWidget {
                   color:buttonColor,
                   borderRadius: BorderRadius.circular(20)
                 ),
-                child: Center(
-                  child: Text(
-                  'Register',
-                  style: TextStyle(
-                    fontSize: 20, 
-                    fontWeight: FontWeight.bold)),
+                child: InkWell(
+                  onTap: () =>  authController.registerUser(_username.text, _email.text, _password.text, authController.profilePhoto),
+                  child: Center(
+                    child: Text(
+                    'Register',
+                    style: TextStyle(
+                      fontSize: 20, 
+                      fontWeight: FontWeight.bold)),
+                  ),
                 )
               ),
               SizedBox(height: 20,),

@@ -6,6 +6,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import '../../../const.dart';
 
 class LoginScreen extends StatelessWidget {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
+                controller: _email,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20)
@@ -30,6 +33,8 @@ class LoginScreen extends StatelessWidget {
                 height: 20,
               ),
               TextField(
+                obscureText: true,
+                controller: _password,
                 decoration: InputDecoration(
                   border:OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -52,9 +57,13 @@ class LoginScreen extends StatelessWidget {
                      ),
                         
                 child:Center(
-                    child:Text(
-                      'Login',
-                      style:TextStyle(fontSize:20,fontWeight: FontWeight.bold,)
+                  
+                    child:InkWell(
+                      onTap: () =>  authController.loginUser(_email.text, _password.text,),
+                      child: Text(
+                        'Login',
+                        style:TextStyle(fontSize:20,fontWeight: FontWeight.bold,)
+                      ),
                     ),
                   ),
                   ),
@@ -75,6 +84,7 @@ class LoginScreen extends StatelessWidget {
                     onTap:() {
                       Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Signup()));
                     },
+                    
                     child: Text(
                       'Register',
                       style: TextStyle(
