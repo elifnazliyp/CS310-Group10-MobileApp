@@ -1,4 +1,4 @@
-# eyesu
+# eyesu_project
 
 A new Flutter project.
 

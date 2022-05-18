@@ -3,6 +3,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        
     }
 
     dependencies {
@@ -30,4 +31,3 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
