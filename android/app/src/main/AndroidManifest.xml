@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.eyesu">
+    package="com.example.eyesu_project">
    <application
-        android:label="eyesu"
+        android:label="eyesu_project"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
