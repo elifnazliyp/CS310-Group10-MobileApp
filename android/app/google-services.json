@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "800702004623",
+    "project_id": "eyesu-repo",
+    "storage_bucket": "eyesu-repo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800702004623:android:ee51d31693b50e39045ffa",
+        "android_client_info": {
+          "package_name": "com.example.firebase_crud_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800702004623-6lhj2fr8p62rs5kjspd38ck8rl1dan4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGcICeOwFY_6Z7GimlGwJHJIRgwKoT3fM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800702004623-6lhj2fr8p62rs5kjspd38ck8rl1dan4c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
