@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:firebase_crud_app/constants/constants.dart';
+import 'package:firebase_crud_app/constants/dimensions.dart';
+import 'package:firebase_crud_app/constants/styles.dart';
 import 'package:firebase_crud_app/views/auth/sign_up.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +21,20 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation:0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back, 
+            color: Colors.red
+          ),
+          onPressed:() {
+            Navigator.pushNamed(context, "/Welcome");
+          } ),
+      ),
+
+      body: Container(
       padding: EdgeInsets.all(20),
       alignment: Alignment.center,
       child: SingleChildScrollView(
@@ -27,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 15,
+              height: Dheight,
             ),
             TextField(
               controller: _email,
@@ -46,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(
-              height: 15,
+              height: Dheight,
             ),
             TextField(
               obscureText: true,
@@ -74,12 +89,9 @@ class _LoginScreenState extends State<LoginScreen> {
             InkWell(
               onTap: () {
                 setState(() {
-                  isLoadin = true;
+                  Navigator.pushNamed(context, "/HomePage");
                 });
                 authController.loginUser(_email.text, _password.text);
-                setState(() {
-                  isLoadin = false;
-                });
               },
               child: Container(
                 width: MediaQuery.of(context).size.width - 40,
@@ -91,15 +103,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     "Login",
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontSize: DfontSize,
+                      fontWeight: Sbold,
                     ),
                   ),
                 ),
               ),
             ),
             SizedBox(
-              height: 15,
+              height: Dheight,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -107,8 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   'Need an Account? ',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontWeight: Sbold,
+                    fontSize: DfontSize,
                   ),
                 ),
                 SizedBox(
@@ -122,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     'Register',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: Sbold,
                       color: buttonColor,
                     ),
                   ),

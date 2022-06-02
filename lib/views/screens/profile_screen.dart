@@ -7,7 +7,6 @@ class ProfileScreen extends StatefulWidget {
   final String uid;
 
   const ProfileScreen({Key? key, required this.uid}) : super(key: key);
-
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -37,9 +36,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Icons.person,
               ),
               actions: [
-                Icon(
+                IconButton(
+                  icon: Icon(
                   Icons.more_horiz,
                 ),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/ProfileEdit");
+
+                },
+                )
               ],
               title: Text(
                 controller.user['name'],

@@ -100,4 +100,21 @@ class AuthController extends GetxController {
   void signOut() async {
     await firebaseAuth.signOut();
   }
+
+  //sould update?
+  void updateUser(String email, String password, File? image) async{
+    try {
+      
+    
+      if(email.isNotEmpty && password.isNotEmpty){
+        //await firebaseAuth.updateDisplayName(email: email, password: password);
+
+      } else{
+        Get.snackbar('Error updating', 'Please enter all fieds');
+      }
+    } catch (e) {
+      Get.snackbar('Error updating', e.toString());
+    }
+  }
 }
+

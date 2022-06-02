@@ -1,11 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/auth_controller.dart';
 import 'package:firebase_crud_app/views/auth/login_screen.dart';
+import 'package:firebase_crud_app/views/auth/sign_up.dart';
+import 'package:firebase_crud_app/views/screens/home_screen.dart';
+import 'package:firebase_crud_app/views/screens/profile_edit_screen.dart';
+import 'package:firebase_crud_app/views/screens/walkthrough_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
+import 'package:firebase_crud_app/views/screens/welcom_page.dart';
+
+bool isRunBefore= false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,13 +31,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: backgroundColor,
       ),
-      home: LoginScreen(),
+      
+      //home: Welcome(),
+      routes: {
+        "/LoginScreen":(context) => LoginScreen(),
+        "/SignUpScreen": ((context) => SignUp()),
+        "/Welcome": (context) => Welcome(),
+        "/Walkthrough": (context) => WalkthroughPage(),
+        "/HomePage":(context) => HomeScreen(),
+        "/ProfileEdit" : (context) => ProfileEditScreen()
+      },
+     
+      initialRoute: isRunBefore ? "/Welcome" : "/Walkthrough",
     );
   }
 }
+

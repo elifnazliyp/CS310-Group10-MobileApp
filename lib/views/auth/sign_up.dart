@@ -1,4 +1,6 @@
 import 'package:firebase_crud_app/constants/constants.dart';
+import 'package:firebase_crud_app/constants/dimensions.dart';
+import 'package:firebase_crud_app/constants/styles.dart';
 import 'package:firebase_crud_app/views/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,18 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation:0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back, 
+            color: Colors.red
+          ),
+          onPressed:() {
+            Navigator.pushNamed(context, "/Welcome");
+          } ),
+      ),
       body: Container(
         alignment: Alignment.center,
         child: SingleChildScrollView(
@@ -76,7 +90,7 @@ class SignUp extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: Dheight,
                 ),
                 TextField(
                   controller: _password,
@@ -92,12 +106,14 @@ class SignUp extends StatelessWidget {
                   height: 30,
                 ),
                 GestureDetector(
-                  onTap: () => authController.registerUser(
+                  onTap: () {authController.registerUser(
                     _username.text,
                     _email.text,
                     _password.text,
                     authController.profilePhoto,
-                  ),
+                  );
+                  Navigator.pushNamed(context, "/HomePage");
+                  },
                   child: Container(
                     width: MediaQuery.of(context).size.width - 40,
                     height: 50,
@@ -111,7 +127,7 @@ class SignUp extends StatelessWidget {
                       child: Text(
                         'Register',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                            fontWeight: Sbold, fontSize: 20),
                       ),
                     ),
                   ),

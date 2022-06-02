@@ -34,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
         body: searchController.searchedUsers.isEmpty
             ? Center(
                 child: Text(
-                  'Search For Users',
+                  'Find your destiny',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,

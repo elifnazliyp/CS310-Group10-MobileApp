@@ -18,7 +18,7 @@ List pages = [
   VideoScreen(),
   SearchScreen(),
   AddVideoScreen(),
-  UserScreen(),
+  NotificationScreen(),
   ProfileScreen(uid: authController.user.uid)
 ];
 
