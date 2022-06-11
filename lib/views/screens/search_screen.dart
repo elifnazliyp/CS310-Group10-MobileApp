@@ -19,6 +19,12 @@ class _SearchScreenState extends State<SearchScreen> {
     return Obx(() {
       return Scaffold(
         appBar: AppBar(
+            leading: IconButton(
+            icon: Icon(Icons.hail),
+            onPressed:() {
+            Navigator.pushNamed(context, "/TopicSearch");
+          } ,),
+          
           backgroundColor: Colors.red,
           title: TextFormField(
             decoration: InputDecoration(
@@ -30,6 +36,13 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             onFieldSubmitted: (value) => searchController.searchUser(value),
           ),
+          actions: [
+            IconButton(
+            icon: Icon(Icons.add_home_work_rounded),
+            onPressed:() {
+            Navigator.pushNamed(context, "/HomePage");
+          } ,),
+          ],
         ),
         body: searchController.searchedUsers.isEmpty
             ? Center(

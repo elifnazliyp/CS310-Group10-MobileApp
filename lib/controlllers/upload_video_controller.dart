@@ -47,12 +47,15 @@ class UploadVideoController extends GetxController {
       int len = allDocs.docs.length;
       String videoUrl = await _uploadVideoToStorage("Video $len", videoPath);
       String thumbnail = await _uploadImageToStorage("Video $len", videoPath);
+      //List topics = caption.split(" "); 
+      //topics.removeWhere((item) => item[0] != "#");
 
       Video video = Video(
         username: (userDoc.data()! as Map<String, dynamic>)['name'],
         uid: uid,
         id: "Video $len",
         likes: [],
+        //topics: topics,
         commentCount: 0,
         shareCount: 0,
         songName: songName,

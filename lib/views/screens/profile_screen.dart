@@ -56,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               centerTitle: true,
             ),
-            body: SafeArea(
+            body: SingleChildScrollView(
                 child: Column(
               children: [
                 Column(
@@ -174,28 +174,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       height: 20,
                     ),
+
+                    
+
+                    
+                      
                     GridView.builder(
-                        itemCount: controller.user['thumbnails'].length,
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 1,
-                            crossAxisSpacing: 5),
-                        itemBuilder: (context, index) {
-                          String thumbnail =
-                              controller.user['thumbnails'][index];
-                          return Container(
+                      
+                      physics: ScrollPhysics(),
+                      itemCount: controller.user['thumbnails'].length,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1,
+                        crossAxisSpacing: 5
+                      ),
+                      
+
+                      itemBuilder: (context, index) {
+                        
+                        
+                        String thumbnail =
+                          controller.user['thumbnails'][index];
+                        return InkWell(
+                          child: Container(
                             child: Image.network(
                               thumbnail,
                               fit: BoxFit.cover,
+                              
                             ),
-                          );
-                        })
+                            
+                            
+                          ),
+                          onTap: (){
+                            
+                              print(controller.user['thumbnails'][index].toString());
+                            },
+                        );
+                      } 
+                    ),
+                    
                   ],
-                )
+                ) 
               ],
-            )),
+            )
+            ),
           );
         });
+        
   }
 }
