@@ -1,0 +1,73 @@
+{
+    "notifications": [
+        
+        {
+            "name":  "m.t.arrofi", 
+            "profilePic":  "https://randomuser.me/api/portraits/men/46.jpg", 
+            "content":  " started following you. ", 
+            "postImage":  "",
+            "timeAgo":  "1m", 
+            "hasStory" :  false
+        },
+        
+        {
+            "name":  "rodrigo.hawkins", 
+            "profilePic":  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=74daec1914d1d105202bca8a310a6a71", 
+            "content":  " started following you. ", 
+            "postImage":  "",
+            "timeAgo":  "3m", 
+            "hasStory" :  false
+        },
+        {
+            "name":  "lucy.walker", 
+            "profilePic":  "https://randomuser.me/api/portraits/women/0.jpg", 
+            "content":  " started following you. ", 
+            "postImage":  "",
+            "timeAgo":  "4m", 
+            "hasStory" :   true
+        },
+
+        {
+            "name":  "lourdes", 
+            "profilePic":  "https://images.unsplash.com/photo-1498529605908-f357a9af7bf5?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=047fade70e80ebb22ac8f09c04872c40", 
+            "content":  " started following you. ", 
+            "postImage":  "",
+            "timeAgo":  "4m", 
+            "hasStory" :  false
+        },
+        {
+            "name":  "m.t.arrofi", 
+            "profilePic":  "https://randomuser.me/api/portraits/men/46.jpg", 
+            "content":  " started following you. ", 
+            "postImage":  "",
+            "timeAgo":  "1m", 
+            "hasStory" :  false
+        },
+
+    
+        {
+            "name":  "rodrigo.hawkins", 
+            "profilePic":  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=74daec1914d1d105202bca8a310a6a71", 
+            "content":  " started following you. ", 
+            "postImage":  "",
+            "timeAgo":  "3m", 
+            "hasStory" :  false
+        },
+        {
+            "name":  "lucy.walker", 
+            "profilePic":  "https://randomuser.me/api/portraits/women/0.jpg", 
+            "content":  " started following you. ", 
+            "postImage":  "",
+            "timeAgo":  "4m", 
+            "hasStory" :   true
+        },
+        {
+            "name":  "lourdes", 
+            "profilePic":  "https://images.unsplash.com/photo-1498529605908-f357a9af7bf5?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=047fade70e80ebb22ac8f09c04872c40", 
+            "content":  " started following you. ", 
+            "postImage":  "",
+            "timeAgo":  "4m", 
+            "hasStory" :  false
+        }
+    ]    
+}
