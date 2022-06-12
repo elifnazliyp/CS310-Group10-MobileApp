@@ -1,10 +1,14 @@
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/video_controller.dart';
 import 'package:firebase_crud_app/views/screens/comment_screen.dart';
+import 'package:firebase_crud_app/views/screens/home_screen.dart';
+import 'package:firebase_crud_app/views/screens/report.dart';
 import 'package:firebase_crud_app/views/screens/widgets/circle_animation.dart';
 import 'package:firebase_crud_app/views/screens/widgets/video_player_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+
 
 class VideoScreen extends StatelessWidget {
   final VideoController videoController = Get.put(VideoController());
@@ -34,6 +38,18 @@ class VideoScreen extends StatelessWidget {
       ),
     );
   }
+
+  final Email email = Email(
+  body: 'Email body',
+  subject: 'Email subject',
+  recipients: ['eyesu.sabanci@gmail.com'],
+  cc: ['eyesu.sabanci@gmail.com'],
+  bcc: ['eyesu.sabanci@gmail.com'],
+  isHTML: false,
+  );
+
+
+
 
   buildMusicAlbum(String profilePhoto) {
     return SizedBox(
@@ -215,7 +231,29 @@ class VideoScreen extends StatelessWidget {
                               (
                                 children: [
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      showDialog<String>(
+                                        context: context,
+                                        builder: (BuildContext context)=> AlertDialog(  
+                                          title: Text('Report This Post?'),  
+                                          content: const Text(  
+                                              'Thanks for reporting this post. We will review the post'),  
+                                          actions: <Widget>[  
+                                            TextButton(  
+                                              child: const Text('Cancel'),  
+                                              onPressed: () => Navigator.of(context).pop(),
+
+                                            ),  
+                                            TextButton(  
+                                              child: const Text('Okay'),  
+                                              onPressed: () async => await FlutterEmailSender.send(email),
+                                            ),
+                                          ]
+                                        ),
+                                      );
+
+                                    },
+                                    
                                     child: Icon(
                                       Icons.report,
                                       size: 40,

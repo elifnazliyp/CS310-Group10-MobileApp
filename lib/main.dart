@@ -6,6 +6,7 @@ import 'package:firebase_crud_app/views/auth/login_screen.dart';
 import 'package:firebase_crud_app/views/auth/sign_up.dart';
 import 'package:firebase_crud_app/views/screens/home_screen.dart';
 import 'package:firebase_crud_app/views/screens/profile_edit_screen.dart';
+import 'package:firebase_crud_app/views/screens/report.dart';
 import 'package:firebase_crud_app/views/screens/search_screen.dart';
 import 'package:firebase_crud_app/views/screens/single_video.dart';
 import 'package:firebase_crud_app/views/screens/topic_search_screen.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         "/TopicSearch" : (context) => TopicSearch(),
         "/SearchScreen" : (context) => SearchScreen(),
         //"/SingleVideo" : (context) => single_Video(str),
+        "/report" : (context) => report(),
       },
      
       initialRoute: isRunBefore ? "/Welcome" : "/Walkthrough",
