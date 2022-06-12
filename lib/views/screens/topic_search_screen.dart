@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:firebase_crud_app/controlllers/search_controller.dart';
 import 'package:firebase_crud_app/models/video.dart';
 import 'package:firebase_crud_app/views/screens/profile_screen.dart';
+import 'package:firebase_crud_app/views/screens/single_video.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -68,6 +69,14 @@ class _TopicSearchState extends State<TopicSearch> {
                   ),
                 ),
                 onTap: (){
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => single_Video(item_type: video),
+                  ),
+                   );
+
+                  Navigator.pushNamed(context,  "/SingleVideo");
                   print(video.videoUrl);
                   
                 },

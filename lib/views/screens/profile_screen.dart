@@ -1,5 +1,6 @@
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/profile_controller.dart';
+import 'package:firebase_crud_app/views/screens/single_video.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -208,7 +209,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           onTap: (){
                             
-                              print(controller.user['thumbnails'][index].toString());
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => single_Video(item_type: controller.user['thumbnails'][index]),
+                              ),
+                            );
+
+                              Navigator.pushNamed(context,  "/SingleVideo");
                             },
                         );
                       } 
