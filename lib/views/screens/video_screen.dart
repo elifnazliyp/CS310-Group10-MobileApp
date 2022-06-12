@@ -7,7 +7,7 @@ import 'package:firebase_crud_app/views/screens/widgets/circle_animation.dart';
 import 'package:firebase_crud_app/views/screens/widgets/video_player_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
+//import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 
 class VideoScreen extends StatelessWidget {
@@ -38,7 +38,7 @@ class VideoScreen extends StatelessWidget {
       ),
     );
   }
-
+/*
   final Email email = Email(
   body: 'Email body',
   subject: 'Email subject',
@@ -47,6 +47,7 @@ class VideoScreen extends StatelessWidget {
   bcc: ['eyesu.sabanci@gmail.com'],
   isHTML: false,
   );
+  */
 
 
 
@@ -246,7 +247,7 @@ class VideoScreen extends StatelessWidget {
                                             ),  
                                             TextButton(  
                                               child: const Text('Okay'),  
-                                              onPressed: () async => await FlutterEmailSender.send(email),
+                                              onPressed:(){}, //() async => await FlutterEmailSender.send(email),
                                             ),
                                           ]
                                         ),

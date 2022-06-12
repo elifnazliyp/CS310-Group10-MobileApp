@@ -5,7 +5,6 @@ import 'package:firebase_crud_app/controlllers/auth_controller.dart';
 import 'package:firebase_crud_app/views/screens/add_video_screen.dart';
 import 'package:firebase_crud_app/views/screens/profile_screen.dart';
 import 'package:firebase_crud_app/views/screens/search_screen.dart';
-import 'package:firebase_crud_app/views/screens/topic_search_screen.dart';
 import 'package:firebase_crud_app/views/screens/users_screen.dart';
 import 'package:firebase_crud_app/views/screens/video_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';

@@ -142,7 +142,7 @@ class single_Video extends StatelessWidget {
                 ),
 
                 
-                Container(
+                /*Container(
                   width: 100,
                   margin: EdgeInsets.only(top: size.height / 5),
                   child: Column(
@@ -156,6 +156,8 @@ class single_Video extends StatelessWidget {
 
                           FirebaseStorage.instance.refFromURL(item_type.videoUrl).delete();
                         },
+                        
+                        
                         child: Icon(
                           Icons.delete,
                           size: 40,
@@ -168,11 +170,12 @@ class single_Video extends StatelessWidget {
                       Text(
                         'Delete',
                         style: TextStyle(
-                            fontSize: 20, color: Colors.white),
-                      )
-                    ],
+                          fontSize: 20, color: Colors.white),
+                      ) 
+                      
+                    ], 
                   ),
-                ),
+                ), */
 
                 /*Column(
                   children: [

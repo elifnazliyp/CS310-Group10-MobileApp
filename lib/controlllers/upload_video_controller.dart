@@ -16,6 +16,7 @@ class UploadVideoController extends GetxController {
 
   Future<String> _uploadVideoToStorage(String id, String videoPath) async {
     Reference ref = firebaseStorage.ref().child('videos').child(id);
+    print('video id' + ref.toString());
 
     UploadTask uploadTask = ref.putFile(await _compressVideo(videoPath));
     TaskSnapshot snap = await uploadTask;
@@ -47,15 +48,12 @@ class UploadVideoController extends GetxController {
       int len = allDocs.docs.length;
       String videoUrl = await _uploadVideoToStorage("Video $len", videoPath);
       String thumbnail = await _uploadImageToStorage("Video $len", videoPath);
-      //List topics = caption.split(" "); 
-      //topics.removeWhere((item) => item[0] != "#");
 
       Video video = Video(
         username: (userDoc.data()! as Map<String, dynamic>)['name'],
         uid: uid,
         id: "Video $len",
         likes: [],
-        //topics: topics,
         commentCount: 0,
         shareCount: 0,
         songName: songName,
@@ -67,6 +65,43 @@ class UploadVideoController extends GetxController {
 
       await firebaseStore.collection('videos').doc('Video $len').set(
             video.toJson(),
+          );
+      Get.back();
+    } catch (e) {
+      Get.snackbar(
+        'Error Uploading Video',
+        e.toString(),
+      );
+    }
+  }
+
+  uploadPhoto(String songName, String caption, String photoPath) async {
+    try {
+      String uid = firebaseAuth.currentUser!.uid;
+      DocumentSnapshot userDoc =
+          await firebaseStore.collection('users').doc(uid).get();
+      // get id
+      var allDocs = await firebaseStore.collection('photos').get();
+      int len = allDocs.docs.length;
+      String videoUrl = await _uploadVideoToStorage("Photos $len", photoPath);
+      String thumbnail = await _uploadImageToStorage("Photos $len", photoPath);
+
+      Video post = Video(
+        username: (userDoc.data()! as Map<String, dynamic>)['name'],
+        uid: uid,
+        id: "Photos $len",
+        likes: [],
+        commentCount: 0,
+        shareCount: 0,
+        songName: songName,
+        caption: caption,
+        videoUrl: thumbnail,
+        profilePhoto: (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
+        thumbnail: thumbnail,
+      );
+
+      await firebaseStore.collection('photos').doc('Photos $len').set(
+            post.toJson(),
           );
       Get.back();
     } catch (e) {

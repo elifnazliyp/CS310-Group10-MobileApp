@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/models/user.dart' as model;
 import 'package:firebase_crud_app/views/auth/login_screen.dart';
-import 'package:firebase_crud_app/views/auth/sign_up.dart';
 import 'package:firebase_crud_app/views/screens/home_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
