@@ -4,8 +4,10 @@ import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/auth_controller.dart';
 import 'package:firebase_crud_app/views/auth/login_screen.dart';
 import 'package:firebase_crud_app/views/auth/sign_up.dart';
+import 'package:firebase_crud_app/views/screens/change_password_screen.dart';
 import 'package:firebase_crud_app/views/screens/home_screen.dart';
 import 'package:firebase_crud_app/views/screens/profile_edit_screen.dart';
+import 'package:firebase_crud_app/views/screens/profile_screen.dart';
 import 'package:firebase_crud_app/views/screens/search_screen.dart';
 
 import 'package:firebase_crud_app/views/screens/topic_search_screen.dart';
@@ -51,6 +53,8 @@ class MyApp extends StatelessWidget {
         "/ProfileEdit" : (context) => ProfileEditScreen(),
         "/TopicSearch" : (context) => TopicSearch(),
         "/SearchScreen" : (context) => SearchScreen(),
+        "/ChangePassScreen" : (context) => ChangePassScreen(),
+        "/Profilescreen" : (context) => ProfileScreen(uid: '',),
         //"/SingleVideo" : (context) => single_Video(str),
         //"/report" : (context) => report(),
       },

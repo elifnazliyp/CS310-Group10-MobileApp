@@ -12,16 +12,19 @@ class ProfileEditScreen extends StatefulWidget {
 }
 
 class _ProfileEditScreenState extends State<ProfileEditScreen> {
-  final TextEditingController _username = TextEditingController();
-
-  final TextEditingController _email = TextEditingController();
+  final TextEditingController username = TextEditingController();
 
   final TextEditingController _password = TextEditingController();
+
   bool _switchValue=true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+              backgroundColor: Colors.black12,
+              
+            ),
       body:Container(
         alignment:Alignment.center,
         padding: EdgeInsets.all(20),
@@ -48,36 +51,13 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               ),
               SizedBox(height: 20,),
               TextField(
-                controller: _username,
+                controller: username,
                 decoration:InputDecoration(
                   border:OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   hintText:'New Username',
                   prefixIcon: Icon(Icons.person),
-                ),
-              ),
-              SizedBox(height: 20,),
-              TextField(
-                controller: _email,
-                decoration:InputDecoration(
-                  border:OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  hintText:'New Email',
-                  prefixIcon: Icon(Icons.email),
-                ),
-              ),
-              SizedBox(height: 20,),
-              TextField(
-                obscureText: true,
-                controller: _password,
-                decoration:InputDecoration(
-                  border:OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  hintText:'New Password',
-                  prefixIcon: Icon(Icons.lock),
                 ),
               ),
               SizedBox(height: 20,),
@@ -99,7 +79,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                ),
              ),
               
-          
+             SizedBox(height: 20,),
+
               Container(
                 width:MediaQuery.of(context).size.width -40,
                 height: 50,
@@ -108,7 +89,17 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   borderRadius: BorderRadius.circular(20)
                 ),
                 child: InkWell(
-                  onTap: () =>  authController.updateUser(_username.text, _password.text, authController.profilePhoto),
+                  onTap: ()  {
+                    
+                    if (authController.profilePhoto!=null){
+                      authController.updatePhoto(authController.profilePhoto);
+                    }
+                    if (username.text!=null){
+                      authController.updateUsername(username.text);
+                    }
+                    Navigator.pushNamed(context, "/Profilescreen");
+                    print ('hello this is first tap');
+                  },
                   child: Center(
                     child: Text(
                     'Apply',
@@ -119,6 +110,23 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 )
               ),
               SizedBox(height: 20,),
+
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/ChangePassScreen");
+                      },
+                      child: Text(
+                        'Want to change your password?',
+                        style: TextStyle(
+                          color: buttonColor,
+                        ),
+                      ),
+                    )
+                  ],
+                )
               
               
           

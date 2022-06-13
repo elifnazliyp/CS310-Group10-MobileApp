@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/profile_controller.dart';
 import 'package:firebase_crud_app/views/screens/single_video.dart';
@@ -15,6 +16,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final ProfileController profileController = Get.put(ProfileController());
   @override
+  
   void initState() {
     super.initState();
     profileController.updateUserId(widget.uid);
@@ -23,13 +25,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
+      
         init: ProfileController(),
+        
         builder: (controller) {
           if (controller.user.isEmpty) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
+          final user = FirebaseAuth.instance.currentUser;
+          final name = user?.displayName;
+          String name2 = name.toString();
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.black12,
@@ -48,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 )
               ],
               title: Text(
-                controller.user['name'],
+                name2,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

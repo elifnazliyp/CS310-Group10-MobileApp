@@ -101,12 +101,46 @@ class AuthController extends GetxController {
   }
 
   //sould update?
-  void updateUser(String email, String password, File? image) async{
+
+  void updateUsername(String username) async{
+
+
     try {
       
+      
     
-      if(email.isNotEmpty && password.isNotEmpty){
-        //await firebaseAuth.updateDisplayName(email: email, password: password);
+      if(username.isNotEmpty){
+        await user.updateDisplayName(username);
+
+      } else{
+        Get.snackbar('Error updating', 'Please enter all fieds');
+      }
+    } catch (e) {
+      Get.snackbar('Error updating', e.toString());
+    }
+  }
+  void updatePassword(String password) async{
+
+
+    try {
+
+      if(password.isNotEmpty){
+        await user.updatePassword(password);
+
+      } else{
+        Get.snackbar('Error updating', 'Please enter all fieds');
+      }
+    } catch (e) {
+      Get.snackbar('Error updating', e.toString());
+    }
+  }
+  void updatePhoto(File? image) async{
+
+    String downloadUrl = await _uploadToStorage(image!);
+    try {
+
+      if(image!=null){
+        await user.updatePhotoURL(downloadUrl);
 
       } else{
         Get.snackbar('Error updating', 'Please enter all fieds');
