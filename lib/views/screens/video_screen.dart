@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/video_controller.dart';
 import 'package:firebase_crud_app/views/screens/comment_screen.dart';
@@ -7,11 +10,15 @@ import 'package:firebase_crud_app/views/screens/widgets/circle_animation.dart';
 import 'package:firebase_crud_app/views/screens/widgets/video_player_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_crud_app/models/user.dart' as model;
 //import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 
 class VideoScreen extends StatelessWidget {
   final VideoController videoController = Get.put(VideoController());
+
+   
 
   buildProfie(String profilePhoto) {
     return SizedBox(
@@ -38,16 +45,37 @@ class VideoScreen extends StatelessWidget {
       ),
     );
   }
-/*
-  final Email email = Email(
-  body: 'Email body',
-  subject: 'Email subject',
-  recipients: ['eyesu.sabanci@gmail.com'],
-  cc: ['eyesu.sabanci@gmail.com'],
-  bcc: ['eyesu.sabanci@gmail.com'],
-  isHTML: false,
+
+Future sendEmail({
+  required String name,
+  required String email,
+  required String subject,
+  required String message,
+}) async{
+  final serviceId = 'service_gmeqpkt';
+  final templateId = 'template_4n6ni29';
+  final userId = 'LZvrKJHON3Sd3kaJS';
+  final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+  final response = await http.post(
+    url,
+    headers: {
+      'origin': 'http://localhost',
+      'Content-Type': 'application/json',
+    },
+    body: json.encode({
+      'service_id' : serviceId,
+      'template_id' : templateId,
+      'user_id' : userId,
+      'template_params': {
+        'username': name,
+        'user_email': email,
+        'user_subject': subject,
+        'user_message': message,
+      }
+    }),
   );
-  */
+
+}
 
 
 
@@ -84,6 +112,13 @@ class VideoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final user = FirebaseAuth.instance.currentUser;
+    final name = user?.displayName;
+    String name2 = name.toString();
+
+    final email = user?.displayName;
+    String email2 = email.toString();
+
     return Scaffold(
       body: Obx(() {
         return PageView.builder(
@@ -247,8 +282,14 @@ class VideoScreen extends StatelessWidget {
                                             ),  
                                             TextButton(  
                                               child: const Text('Okay'),  
-                                              onPressed:(){}, //() async => await FlutterEmailSender.send(email),
+                                              onPressed:() => sendEmail(
+                                                name: name2 ,
+                                                email: email2,
+                                                subject: ' report post',
+                                                message: ' report',) ,
+                                   
                                             ),
+                  
                                           ]
                                         ),
                                       );
