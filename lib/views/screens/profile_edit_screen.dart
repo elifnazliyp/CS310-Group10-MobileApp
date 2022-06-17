@@ -1,8 +1,7 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 
@@ -20,17 +19,21 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
+      
       appBar: AppBar(
               backgroundColor: Colors.black12,
               
             ),
       body:Container(
+        
         alignment:Alignment.center,
         padding: EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            
             children: [
               Stack(
                 children: [
@@ -49,6 +52,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   ))
                 ],
               ),
+              
               SizedBox(height: 20,),
               TextField(
                 controller: username,
@@ -120,6 +124,24 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       },
                       child: Text(
                         'Want to change your password?',
+                        style: TextStyle(
+                          color: buttonColor,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 40,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        user?.delete;
+                        Navigator.pushNamed(context, "/SignUpScreen");
+                      },
+                      child: Text(
+                        'Delete account?',
                         style: TextStyle(
                           color: buttonColor,
                         ),

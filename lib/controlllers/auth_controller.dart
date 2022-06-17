@@ -149,5 +149,14 @@ class AuthController extends GetxController {
       Get.snackbar('Error updating', e.toString());
     }
   }
+  void deletecurrentUser() async{
+
+    try {
+      await user.delete();
+
+    } catch (e) {
+      Get.snackbar('Error deleting', e.toString());
+    }
+  }
 }
 

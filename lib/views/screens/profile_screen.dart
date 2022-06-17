@@ -11,16 +11,26 @@ class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, required this.uid}) : super(key: key);
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
+  
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final ProfileController profileController = Get.put(ProfileController());
+  late TransformationController controller2;
+  TapDownDetails? tapDownDetails;
   @override
+  
   
   void initState() {
     super.initState();
     profileController.updateUserId(widget.uid);
+    controller2 = TransformationController();
   }
+  void dispose () {
+    controller2.dispose();
+    super.dispose();
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           final user = FirebaseAuth.instance.currentUser;
           final name = user?.displayName;
           String name2 = name.toString();
+          String profilepic = controller.user['profilePhoto'];
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.black12,
@@ -65,22 +76,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
               centerTitle: true,
             ),
             body: SingleChildScrollView(
-                child: Column(
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 64,
-                          backgroundColor: Colors.blue,
-                          backgroundImage: NetworkImage(
-                            controller.user['profilePhoto'],
+              child: Column(
+                  
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onDoubleTapDown: (details)=> tapDownDetails= details,
+                            onDoubleTap: () {
+                              final position =tapDownDetails!.localPosition;
+                              final double scale =3;
+                              final x = -position.dx * (scale-1);
+                              final y = -position.dy * (scale-1);
+                              final zoomed = Matrix4.identity()
+                              ..translate(x,y)
+                              ..scale(scale);
+                              final value = controller2.value.isIdentity() ? zoomed: Matrix4.identity();
+                              controller2.value =value;
+                            },
+                            child: InteractiveViewer(
+                              clipBehavior: Clip.none,
+                              transformationController: controller2,
+                              panEnabled: false,
+                              scaleEnabled: false,
+                              boundaryMargin: EdgeInsets.all(100),
+                              minScale: 0.5,
+                              maxScale: 2,
+                              
+                              
+                              
+                              child: 
+                            
+                                Image.network(
+                                  
+                                  profilepic,
+                                  width: 150,
+                                  height: 150,
+                                  fit: BoxFit.cover,
+                                ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                          /*CircleAvatar(
+                            radius: 64,
+                            backgroundColor: Colors.blue,
+                            backgroundImage: NetworkImage(
+                              controller.user['profilePhoto'],
+                            ),
+                          ),*/
+                        ],
+                      ),
                     SizedBox(
                       height: 15,
                     ),
