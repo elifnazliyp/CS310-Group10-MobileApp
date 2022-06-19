@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/video_controller.dart';
+
+import 'package:firebase_crud_app/views/screens/chats_page.dart';
 import 'package:firebase_crud_app/views/screens/comment_screen.dart';
 import 'package:firebase_crud_app/views/screens/home_screen.dart';
 import 'package:firebase_crud_app/views/screens/report.dart';
@@ -67,10 +69,10 @@ Future sendEmail({
       'template_id' : templateId,
       'user_id' : userId,
       'template_params': {
-        'username': name,
-        'user_email': email,
-        'user_subject': subject,
-        'user_message': message,
+      'username': name,
+      'user_email': email,
+      'user_subject': subject,
+      'user_message': message,
       }
     }),
   );
@@ -192,8 +194,7 @@ Future sendEmail({
                               Column(
                                 children: [
                                   InkWell(
-                                    onTap: () =>
-                                        videoController.likeVideo(data.id),
+                                     onTap: () => videoController.likeVideo(data.id),
                                     child: Icon(
                                       Icons.favorite,
                                       size: 40,
@@ -245,7 +246,10 @@ Future sendEmail({
                               (
                                 children: [
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () => Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => ChatsPage(),
+                                    )),
                                     child: Icon(
                                       Icons.reply,
                                       size: 40,
@@ -286,7 +290,8 @@ Future sendEmail({
                                                 name: name2 ,
                                                 email: email2,
                                                 subject: ' report post',
-                                                message: ' report',) ,
+                                                message: 'Hello, We detected that the video posted by the ' +data.username + ' received reports from other users.The content of the post is as shown below '
+                                                + data.videoUrl + 'It is necessary to investigate the content that disrupts the necessary social structure and integrity on the subject and to process the post in the near future so that it can be deleted if necessary.',) ,
                                    
                                             ),
                   

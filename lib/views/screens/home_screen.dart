@@ -1,4 +1,5 @@
 import 'package:firebase_crud_app/constants/constants.dart';
+import 'package:firebase_crud_app/views/screens/chats_page.dart';
 import 'package:firebase_crud_app/views/screens/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
@@ -43,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: CustomIcon(),
             label: 'Add',
           ),
+          
           BottomNavigationBarItem(
             icon: Icon(
               Icons.notifications,
@@ -50,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             label: 'Notification',
           ),
+        
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person,

@@ -10,6 +10,7 @@ class SignUp extends StatelessWidget {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,6 +112,7 @@ class SignUp extends StatelessWidget {
                     _email.text,
                     _password.text,
                     authController.profilePhoto,
+               
                   );
                   Navigator.pushNamed(context, "/HomePage");
                   },

@@ -73,6 +73,7 @@ class CommentScreen extends StatelessWidget {
                           trailing: InkWell(
                               onTap: () =>
                                   commentController.likeComment(data.id),
+                                  
                               child: Icon(
                                 Icons.favorite,
                                 size: 25,

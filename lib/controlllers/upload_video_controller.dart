@@ -54,6 +54,8 @@ class UploadVideoController extends GetxController {
         uid: uid,
         id: "Video $len",
         likes: [],
+     
+   
         commentCount: 0,
         shareCount: 0,
         songName: songName,
@@ -91,7 +93,8 @@ class UploadVideoController extends GetxController {
         uid: uid,
         id: "Photos $len",
         likes: [],
-        commentCount: 0,
+       
+        commentCount: 0, 
         shareCount: 0,
         songName: songName,
         caption: caption,

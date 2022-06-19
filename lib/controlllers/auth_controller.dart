@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
+import 'package:firebase_crud_app/models/message_utils.dart';
 import 'package:firebase_crud_app/models/user.dart' as model;
 import 'package:firebase_crud_app/views/auth/login_screen.dart';
 import 'package:firebase_crud_app/views/screens/home_screen.dart';
@@ -69,6 +70,7 @@ class AuthController extends GetxController {
           profilePhoto: downloadUrl,
           email: email,
           uid: cred.user!.uid,
+
         );
         await firebaseStore
             .collection('users')
