@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
-import 'package:firebase_crud_app/models/message_utils.dart';
 import 'package:firebase_crud_app/models/user.dart' as model;
 import 'package:firebase_crud_app/views/auth/login_screen.dart';
 import 'package:firebase_crud_app/views/screens/home_screen.dart';
@@ -70,7 +69,6 @@ class AuthController extends GetxController {
           profilePhoto: downloadUrl,
           email: email,
           uid: cred.user!.uid,
-
         );
         await firebaseStore
             .collection('users')
@@ -103,18 +101,61 @@ class AuthController extends GetxController {
   }
 
   //sould update?
-  void updateUser(String email, String password, File? image) async{
+
+  void updateUsername(String username) async{
+
+
     try {
       
+      
     
-      if(email.isNotEmpty && password.isNotEmpty){
-        //await firebaseAuth.updateDisplayName(email: email, password: password);
+      if(username.isNotEmpty){
+        await user.updateDisplayName(username);
 
       } else{
         Get.snackbar('Error updating', 'Please enter all fieds');
       }
     } catch (e) {
       Get.snackbar('Error updating', e.toString());
+    }
+  }
+  void updatePassword(String password) async{
+
+
+    try {
+
+      if(password.isNotEmpty){
+        await user.updatePassword(password);
+
+      } else{
+        Get.snackbar('Error updating', 'Please enter all fieds');
+      }
+    } catch (e) {
+      Get.snackbar('Error updating', e.toString());
+    }
+  }
+  void updatePhoto(File? image) async{
+
+    String downloadUrl = await _uploadToStorage(image!);
+    try {
+
+      if(image!=null){
+        await user.updatePhotoURL(downloadUrl);
+
+      } else{
+        Get.snackbar('Error updating', 'Please enter all fieds');
+      }
+    } catch (e) {
+      Get.snackbar('Error updating', e.toString());
+    }
+  }
+  void deletecurrentUser() async{
+
+    try {
+      await user.delete();
+
+    } catch (e) {
+      Get.snackbar('Error deleting', e.toString());
     }
   }
 }
