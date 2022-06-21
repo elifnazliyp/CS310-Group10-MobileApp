@@ -13,12 +13,14 @@ class User {
   String uid;
   DateTime? lastMessageTime;
 
+
   User(
       {required this.name,
       required this.profilePhoto,
       required this.email,
       required this.uid,
-      this.lastMessageTime});
+      this.lastMessageTime,
+      });
 
 /*  Map<String, dynamic> toJson() => {
         "name": name,
@@ -34,7 +36,8 @@ class User {
         profilePhoto: snapshot['profilePhoto'],
         email: snapshot['email'],
         uid: snapshot['uid'],
-        lastMessageTime: Utils.toDateTime(snapshot['lastMessageTime']));
+        lastMessageTime: Utils.toDateTime(snapshot['lastMessageTime']),
+         );
   }
 
 
@@ -45,6 +48,7 @@ class User {
     required String email,
     required String profilePhoto,
     DateTime? lastMessageTime,
+   
   }) =>
       User(
         uid: uid,
@@ -52,7 +56,7 @@ class User {
         email: email,
         profilePhoto: profilePhoto,
         lastMessageTime: lastMessageTime, 
-        
+    
       );
 
   static User fromJson(Map<String, dynamic> json) => User(
@@ -61,6 +65,7 @@ class User {
         email: json['email'],
         profilePhoto: json['profilePhoto'],
         lastMessageTime: Utils.toDateTime(json['lastMessageTime']),
+       
         
       );
 
@@ -70,6 +75,7 @@ class User {
         'email':email,
         'profilePhoto': profilePhoto,
         'lastMessageTime': Utils.fromDateTimeToJson(lastMessageTime!),
+        
         
       };
   

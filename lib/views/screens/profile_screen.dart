@@ -1,5 +1,6 @@
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/profile_controller.dart';
+import 'package:firebase_crud_app/views/screens/bookmark.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_crud_app/controlllers/search_controller.dart';
@@ -42,12 +43,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Icons.person,
               ),
               actions: [
+      
                 IconButton(
                   icon: Icon(
                     Icons.more_horiz,
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, "/ProfileEdit");
+
+                  },
+                ),
+                SizedBox(height: 5,),
+
+                IconButton(
+                  icon: Icon(
+                    Icons.bookmark,
+                  ),
+                  onPressed: () {
+                  Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => Bookmark(),
+                                    ));
 
                   },
                 )

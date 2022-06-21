@@ -54,8 +54,6 @@ class UploadVideoController extends GetxController {
         uid: uid,
         id: "Video $len",
         likes: [],
-     
-   
         commentCount: 0,
         shareCount: 0,
         songName: songName,
@@ -63,6 +61,7 @@ class UploadVideoController extends GetxController {
         videoUrl: videoUrl,
         profilePhoto: (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
         thumbnail: thumbnail,
+        isSaved: [],
       );
 
       await firebaseStore.collection('videos').doc('Video $len').set(
@@ -101,6 +100,7 @@ class UploadVideoController extends GetxController {
         videoUrl: thumbnail,
         profilePhoto: (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
         thumbnail: thumbnail,
+        isSaved: [],
       );
 
       await firebaseStore.collection('photos').doc('Photos $len').set(

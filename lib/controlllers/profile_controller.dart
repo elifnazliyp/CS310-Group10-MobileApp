@@ -33,10 +33,12 @@ class ProfileController extends GetxController {
     int followers = 0;
     int following = 0;
     bool isFollowing = false;
+ 
 
     for (var item in myVideos.docs) {
       likes += (item.data()['likes'] as List).length;
     }
+
     var followerDoc = await firebaseStore
         .collection('users')
         .doc(_uid.value)
@@ -47,8 +49,12 @@ class ProfileController extends GetxController {
         .doc(_uid.value)
         .collection('following')
         .get();
+  
+
     followers = followerDoc.docs.length;
     following = followingDoc.docs.length;
+  
+
 
     firebaseStore
         .collection('users')
@@ -64,6 +70,8 @@ class ProfileController extends GetxController {
       }
     });
 
+
+
     _user.value = {
       'followers': followers.toString(),
       'following': following.toString(),
@@ -72,6 +80,7 @@ class ProfileController extends GetxController {
       'profilePhoto': profilePhoto,
       'name': name,
       'thumbnails': thumbnails,
+
     };
     update();
   }
@@ -119,4 +128,7 @@ class ProfileController extends GetxController {
     _user.value.update('isFollowing', (value) => !value);
     update();
   }
+  
+
+
 }

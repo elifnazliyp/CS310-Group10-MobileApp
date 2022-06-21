@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
+import 'package:firebase_crud_app/controlllers/profile_controller.dart';
 import 'package:firebase_crud_app/controlllers/video_controller.dart';
+import 'package:firebase_crud_app/views/screens/bookmark.dart';
 
 import 'package:firebase_crud_app/views/screens/chats_page.dart';
 import 'package:firebase_crud_app/views/screens/comment_screen.dart';
@@ -17,10 +19,18 @@ import 'package:firebase_crud_app/models/user.dart' as model;
 //import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 
-class VideoScreen extends StatelessWidget {
+class VideoScreen extends StatefulWidget {
+  //final SearchController searchController = Get.put(SearchController());
+
+
+  @override
+  State<VideoScreen> createState() => _VideoScreenState();
+}
+
+class _VideoScreenState extends State<VideoScreen> {
   final VideoController videoController = Get.put(VideoController());
 
-   
+  //final ProfileController profileController = Get.put(ProfileController());
 
   buildProfie(String profilePhoto) {
     return SizedBox(
@@ -79,9 +89,6 @@ Future sendEmail({
 
 }
 
-
-
-
   buildMusicAlbum(String profilePhoto) {
     return SizedBox(
       width: 60,
@@ -111,7 +118,7 @@ Future sendEmail({
     );
   }
 
-  @override
+
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final user = FirebaseAuth.instance.currentUser;
@@ -121,8 +128,11 @@ Future sendEmail({
     final email = user?.displayName;
     String email2 = email.toString();
 
+
+
     return Scaffold(
       body: Obx(() {
+        
         return PageView.builder(
           itemCount: videoController.videoList.length,
           scrollDirection: Axis.vertical,
@@ -242,6 +252,7 @@ Future sendEmail({
                                   ),
                                 ],
                               ),
+
                               Column
                               (
                                 children: [
@@ -259,13 +270,33 @@ Future sendEmail({
                                   SizedBox(
                                     height: 7,
                                   ),
-                                  Text(
-                                    '2',
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.white),
-                                  )
                                 ],
                               ),
+
+                              Column
+                              (
+                              children: [
+                            
+                                  InkWell(                                   
+                                      onTap: () => videoController.bookmarkVideo(data.id),
+                                      
+                                    child: Icon(
+                                      Icons.bookmark,
+                                      size: 40,
+                                      color: data.isSaved
+                                              .contains(authController.user.uid)
+                                          ? Colors.red
+                                          : Colors.white,
+                                   
+                                    ),
+                                  ),
+      
+                                  SizedBox(
+                                    height: 7,
+                                  ),
+                                ],
+                              ),
+
 
                               Column
                               (

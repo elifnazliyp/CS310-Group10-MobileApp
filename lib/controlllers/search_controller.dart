@@ -112,5 +112,51 @@ class SearchController extends GetxController {
       ),
     );
   }
+/*
+  searchBookmark(String videoID) async {
+    var followingDoc = await firebaseStore
+        .collection('videos')
+        .doc(videoID)
+        .collection('isSaved')
+        .get();
+    List<String> isSavedList = [];
+    for (var elem in followingDoc.docs) {
+      isSavedList.add(elem['id'].toString());
+    }
+    _searchedVideos.bindStream(
+      firebaseStore
+          .collection('video')
+          .snapshots()
+          .map(
+            (QuerySnapshot query) {
+          List<Video> retVal = [];
+          for (var elem in query.docs) {
+            if (isSavedList.contains(Video.fromSnap(elem).uid.toString())) {
+              retVal.add(Video.fromSnap(elem));
+            }
+          }
+          return retVal;
+        },
+      ),
+    );
+  }
+  */
+   searchBookmark(String typeUserId) async {
+    _searchedVideos.bindStream(
+      firebaseStore
+          .collection('videos')
+          .where('isSaved', arrayContains: typeUserId)
+          .snapshots()
+          .map(
+            (QuerySnapshot query) {
+          List<Video> retVal = [];
+          for (var elem in query.docs) {
+            retVal.add(Video.fromSnap(elem));
+          }
+          return retVal;
+        },
+      ),
+    );
+  }
 
 }

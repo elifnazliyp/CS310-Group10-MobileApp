@@ -39,6 +39,7 @@ class _FollowersScreenState extends State<FollowersScreen> {
           return Scaffold(
             appBar: AppBar(
               title: Text("Followers")
+              
 
             ),
             body:ListView.builder(
