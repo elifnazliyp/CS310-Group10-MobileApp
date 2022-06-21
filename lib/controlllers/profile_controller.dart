@@ -89,14 +89,14 @@ class ProfileController extends GetxController {
           .doc(_uid.value)
           .collection('followers')
           .doc(authController.user.uid)
-          .set({});
+          .set({'id' : authController.user.uid.toString()});
 
       await firebaseStore
           .collection('users')
           .doc(authController.user.uid)
           .collection('following')
           .doc(_uid.value)
-          .set({});
+          .set({'id' : _uid.value.toString()});
       _user.value
           .update('followers', (value) => (int.parse(value) + 1).toString());
     } else {

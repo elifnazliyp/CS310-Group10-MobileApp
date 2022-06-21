@@ -34,7 +34,7 @@ class User {
         profilePhoto: snapshot['profilePhoto'],
         email: snapshot['email'],
         uid: snapshot['uid'],
-        lastMessageTime: snapshot['lastMessageTime']);
+        lastMessageTime: Utils.toDateTime(snapshot['lastMessageTime']));
   }
 
 

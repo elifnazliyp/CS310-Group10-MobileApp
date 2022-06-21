@@ -1,55 +1,42 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/profile_controller.dart';
-import 'package:firebase_crud_app/views/screens/single_video.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_crud_app/controlllers/search_controller.dart';
+import 'package:firebase_crud_app/views/screens/following_screen.dart';
+
+import 'followers_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
+  //final SearchController searchController = Get.put(SearchController());
 
-  const ProfileScreen({Key? key, required this.uid}) : super(key: key);
+   ProfileScreen({Key? key, required this.uid}) : super(key: key);
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
-  
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final ProfileController profileController = Get.put(ProfileController());
-  late TransformationController controller2;
-  TapDownDetails? tapDownDetails;
   @override
-  
-  
   void initState() {
     super.initState();
     profileController.updateUserId(widget.uid);
-    controller2 = TransformationController();
   }
-  void dispose () {
-    controller2.dispose();
-    super.dispose();
-  }
-  
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
-      
         init: ProfileController(),
-        
         builder: (controller) {
           if (controller.user.isEmpty) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
-          final user = FirebaseAuth.instance.currentUser;
-          final name = user?.displayName;
-          String name2 = name.toString();
-          String profilepic = controller.user['profilePhoto'];
           return Scaffold(
-            appBar: AppBar(
+            appBar: widget.uid == authController.user.uid
+                ? AppBar(
               backgroundColor: Colors.black12,
               leading: Icon(
                 Icons.person,
@@ -57,16 +44,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
               actions: [
                 IconButton(
                   icon: Icon(
-                  Icons.more_horiz,
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, "/ProfileEdit");
+                    Icons.more_horiz,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/ProfileEdit");
 
-                },
+                  },
                 )
               ],
               title: Text(
-                name2,
+                controller.user['name'],
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+              centerTitle: true,
+            )
+                : AppBar(
+              backgroundColor: Colors.black12,
+              leading: Icon(
+                Icons.person,
+              ),
+              title: Text(
+                controller.user['name'],
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -76,58 +78,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               centerTitle: true,
             ),
             body: SingleChildScrollView(
-              child: Column(
-                  
-                children: [
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onDoubleTapDown: (details)=> tapDownDetails= details,
-                            onDoubleTap: () {
-                              final position =tapDownDetails!.localPosition;
-                              final double scale =3;
-                              final x = -position.dx * (scale-1);
-                              final y = -position.dy * (scale-1);
-                              final zoomed = Matrix4.identity()
-                              ..translate(x,y)
-                              ..scale(scale);
-                              final value = controller2.value.isIdentity() ? zoomed: Matrix4.identity();
-                              controller2.value =value;
-                            },
-                            child: InteractiveViewer(
-                              clipBehavior: Clip.none,
-                              transformationController: controller2,
-                              panEnabled: false,
-                              scaleEnabled: false,
-                              boundaryMargin: EdgeInsets.all(100),
-                              minScale: 0.5,
-                              maxScale: 2,
-                              
-                              
-                              
-                              child: 
-                            
-                                Image.network(
-                                  
-                                  profilepic,
-                                  width: 150,
-                                  height: 150,
-                                  fit: BoxFit.cover,
-                                ),
-                            ),
+                child: Column(
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 64,
+                          backgroundColor: Colors.blue,
+                          backgroundImage: NetworkImage(
+                            controller.user['profilePhoto'],
                           ),
-                          /*CircleAvatar(
-                            radius: 64,
-                            backgroundColor: Colors.blue,
-                            backgroundImage: NetworkImage(
-                              controller.user['profilePhoto'],
-                            ),
-                          ),*/
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
                     SizedBox(
                       height: 15,
                     ),
@@ -145,11 +111,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              'Following',
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            )
+                            Container(
+                              child: Center(
+                                    child:InkWell(
+                                      onTap: (){
+                                        //Navigator.pushNamed(context , widget.uid, "/FollowingScreen");
+                                        //print("following");
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) => FollowingScreen(
+                                              myuid: widget.uid,
+                                            )));
+                                    },
+
+                                        child: Text(
+                                          'Following',
+                                          style: TextStyle(
+                                              fontSize: 15, fontWeight: FontWeight.bold),
+                                        )
+
+                                    )
+
+                              )
+
+                                )
                           ],
                         ),
                         SizedBox(
@@ -165,10 +149,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              'Followers',
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            Container(
+                                child: Center(
+                                    child:InkWell(
+                                        onTap: (){
+                                        //Navigator.pushNamed(context , widget.uid, "/FollowingScreen");
+                                        //print("following");
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) => FollowersScreen(
+                                              myuid: widget.uid,
+                                            )));
+                                    },
+
+                                        child: Text(
+                                          'Followers',
+                                          style: TextStyle(
+                                              fontSize: 15, fontWeight: FontWeight.bold),
+                                        )
+
+                                    )
+
+                                )
+
                             )
                           ],
                         ),
@@ -263,14 +265,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           onTap: (){
                             
-                              Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => single_Video(item_type: controller.user['thumbnails'][index]),
-                              ),
-                            );
-
-                              Navigator.pushNamed(context,  "/SingleVideo");
+                              print(controller.user['thumbnails'][index].toString());
                             },
                         );
                       } 
