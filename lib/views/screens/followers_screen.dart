@@ -10,7 +10,8 @@ import '../../models/user.dart';
 
 class FollowersScreen extends StatefulWidget {
   final String myuid;
-  //final SearchController searchController = Get.put(SearchController());
+  final SearchController searchController = Get.put(SearchController());
+  
 
   FollowersScreen({Key? key, required this.myuid}) : super(key: key);
   @override
@@ -19,11 +20,12 @@ class FollowersScreen extends StatefulWidget {
 
 class _FollowersScreenState extends State<FollowersScreen> {
   final SearchController searchController = Get.put(SearchController());
+  
   @override
   void initState() {
     super.initState();
     searchController.searchFollower(widget.myuid);
-    //print(searchController.searchedFollowers.length);
+    print("searchController.searchedFollowers.length");
   }
 
   @override
@@ -32,10 +34,12 @@ class _FollowersScreenState extends State<FollowersScreen> {
         init: ProfileController(),
         builder: (controller) {
           if (controller.user.isEmpty) {
+            searchController.searchFollower(widget.myuid);
             return Center(
               child: CircularProgressIndicator(),
             );
           }
+          else{searchController.searchFollower(widget.myuid);
           return Scaffold(
             appBar: AppBar(
               title: Text("Followers")
@@ -67,7 +71,7 @@ class _FollowersScreenState extends State<FollowersScreen> {
                     ),
                   );
                 }),
-          );
+          );}
         });
 
   }

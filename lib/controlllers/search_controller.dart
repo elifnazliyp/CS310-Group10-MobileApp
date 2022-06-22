@@ -56,7 +56,7 @@ class SearchController extends GetxController {
   }
 
   searchFollowings(String userId) async {
-    print("*********************2");
+    print("searchFollowings has been called");
     var followingDoc = await firebaseStore
         .collection('users')
         .doc(userId)
@@ -77,7 +77,10 @@ class SearchController extends GetxController {
             //print("*********************");
             //print((User.fromSnap(elem).uid));
             if (followingList.contains(User.fromSnap(elem).uid))
-            retVal.add(User.fromSnap(elem));
+            {
+              //print((User.fromSnap(elem).uid));
+              retVal.add(User.fromSnap(elem));
+            }
           }
           return retVal;
         },
@@ -86,6 +89,7 @@ class SearchController extends GetxController {
   }
 
   searchFollower(String userId) async {
+     print("searchFollower has been called");
     var followingDoc = await firebaseStore
         .collection('users')
         .doc(userId)
@@ -95,7 +99,7 @@ class SearchController extends GetxController {
     for (var elem in followingDoc.docs) {
       followingList.add(elem['id'].toString());
     }
-    _searchedUsers.bindStream(
+    _searchedFollowers.bindStream(
       firebaseStore
           .collection('users')
           .snapshots()
@@ -112,40 +116,30 @@ class SearchController extends GetxController {
       ),
     );
   }
-/*
-  searchBookmark(String videoID) async {
-    var followingDoc = await firebaseStore
-        .collection('videos')
-        .doc(videoID)
-        .collection('isSaved')
-        .get();
-    List<String> isSavedList = [];
-    for (var elem in followingDoc.docs) {
-      isSavedList.add(elem['id'].toString());
-    }
+
+   searchBookmark(String typeUserId) async {
     _searchedVideos.bindStream(
       firebaseStore
-          .collection('video')
+          .collection('videos')
+          .where('isSaved', arrayContains: typeUserId)
           .snapshots()
           .map(
             (QuerySnapshot query) {
           List<Video> retVal = [];
           for (var elem in query.docs) {
-            if (isSavedList.contains(Video.fromSnap(elem).uid.toString())) {
-              retVal.add(Video.fromSnap(elem));
-            }
+            retVal.add(Video.fromSnap(elem));
           }
           return retVal;
         },
       ),
     );
   }
-  */
-   searchBookmark(String typeUserId) async {
+
+    searchHashtag(String typeHashtag) async {
     _searchedVideos.bindStream(
       firebaseStore
           .collection('videos')
-          .where('isSaved', arrayContains: typeUserId)
+          .where('topics', arrayContains: typeHashtag)
           .snapshots()
           .map(
             (QuerySnapshot query) {

@@ -10,7 +10,7 @@ import '../../models/user.dart';
 
 class FollowingScreen extends StatefulWidget {
   final String myuid;
-  //final SearchController searchController = Get.put(SearchController());
+  final SearchController searchController = Get.put(SearchController());
 
   FollowingScreen({Key? key, required this.myuid}) : super(key: key);
   @override
@@ -23,7 +23,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
   void initState() {
     super.initState();
     searchController.searchFollowings(widget.myuid);
-    //print(searchController.searchedFollowing.length);
+    print("searchController.searchedFollowing.length");
   }
 
   @override
@@ -32,6 +32,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
         init: ProfileController(),
         builder: (controller) {
           if (controller.user.isEmpty) {
+            searchController.searchFollowings(widget.myuid);
             return Center(
               child: CircularProgressIndicator(),
             );

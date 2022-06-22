@@ -13,7 +13,7 @@ class Video {
   String thumbnail;
   String profilePhoto;
   List isSaved;
-  //List topics;
+  List topics;
 
   Video({
     required this.username,
@@ -28,7 +28,7 @@ class Video {
     required this.profilePhoto,
     required this.thumbnail,
     required this.isSaved,
-    //required this.topics,
+    required this.topics,
   });
 
   Map<String, dynamic> toJson() => {
@@ -44,7 +44,7 @@ class Video {
         "videoUrl": videoUrl,
         "thumbnail": thumbnail,
         "isSaved": isSaved,
-        //"topics": topics,
+        "topics": topics,
       };
 
   static Video fromSnap(DocumentSnapshot snap) {
@@ -63,7 +63,7 @@ class Video {
       profilePhoto: snapshot['profilePhoto'],
       thumbnail: snapshot['thumbnail'],
       isSaved: snapshot['isSaved'],
-     // topics: snapshot['topics'],
+      topics: snapshot['topics'],
     );
   }
 }

@@ -20,7 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
       return Scaffold(
         appBar: AppBar(
             leading: IconButton(
-            icon: Icon(Icons.hail),
+            icon: Icon(Icons.topic),
             onPressed:() {
             Navigator.pushNamed(context, "/TopicSearch");
           } ,),
@@ -38,9 +38,9 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           actions: [
             IconButton(
-            icon: Icon(Icons.add_home_work_rounded),
+            icon: Icon(Icons.search_off_sharp),
             onPressed:() {
-            Navigator.pushNamed(context, "/HomePage");
+            Navigator.pushNamed(context, "/HashtagScreen");
           } ,),
           ],
         ),
