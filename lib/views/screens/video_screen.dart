@@ -251,11 +251,13 @@ Future sendEmail({
                                         size: 15,
                                         color: Colors.white,
                                       ),
-                                      Text(
-                                        data.Address.toString(),
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.white,
+                                      Flexible(
+                                        child: Text(
+                                          data.Address.toString(),
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ],
