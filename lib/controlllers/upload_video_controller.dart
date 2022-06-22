@@ -37,6 +37,14 @@ class UploadVideoController extends GetxController {
     return downloadUrl;
   }
 
+  Future<String> _uploadPhotoToStorage(String id, String PhotoPath) async {
+    Reference ref = firebaseStorage.ref().child('thumbnails').child(id);
+    UploadTask uploadTask = ref.putFile(await _getThumbnail(PhotoPath));
+    TaskSnapshot snap = await uploadTask;
+    String downloadUrl = await snap.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
   // upload video
   uploadVideo(String songName, String caption, String videoPath) async {
     try {
@@ -54,8 +62,6 @@ class UploadVideoController extends GetxController {
         uid: uid,
         id: "Video $len",
         likes: [],
-     
-   
         commentCount: 0,
         shareCount: 0,
         songName: songName,
@@ -77,7 +83,7 @@ class UploadVideoController extends GetxController {
     }
   }
 
-  uploadPhoto(String songName, String caption, String photoPath) async {
+  uploadPhoto(String PhotoName, String caption, String photoPath) async {
     try {
       String uid = firebaseAuth.currentUser!.uid;
       DocumentSnapshot userDoc =
@@ -85,20 +91,17 @@ class UploadVideoController extends GetxController {
       // get id
       var allDocs = await firebaseStore.collection('photos').get();
       int len = allDocs.docs.length;
-      String videoUrl = await _uploadVideoToStorage("Photos $len", photoPath);
-      String thumbnail = await _uploadImageToStorage("Photos $len", photoPath);
+      String thumbnail = await _uploadPhotoToStorage("Photos $len", photoPath);
 
-      Video post = Video(
+      Photo post = Photo(
         username: (userDoc.data()! as Map<String, dynamic>)['name'],
         uid: uid,
         id: "Photos $len",
         likes: [],
-       
-        commentCount: 0, 
+        commentCount: 0,
         shareCount: 0,
-        songName: songName,
+        PhotoName: PhotoName,
         caption: caption,
-        videoUrl: thumbnail,
         profilePhoto: (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
         thumbnail: thumbnail,
       );

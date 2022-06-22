@@ -38,7 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           actions: [
             IconButton(
-            icon: Icon(Icons.add_home_work_rounded),
+            icon: Icon(Icons.add_to_home_screen_rounded/*add_home_work_rounded*/),
             onPressed:() {
             Navigator.pushNamed(context, "/HomePage");
           } ,),

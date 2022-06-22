@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crud_app/views/screens/widgets/data.dart';
 import 'package:firebase_crud_app/models/message.dart';
 import 'package:firebase_crud_app/models/user.dart';
 
 import 'package:firebase_crud_app/models/message_utils.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseApi {
   static Stream<List<User>> getUsers() => FirebaseFirestore.instance
@@ -58,4 +61,6 @@ class FirebaseApi {
       }
     }
   }
+
+  static UploadTask? uploadFile(String destination, File file) {}
 }

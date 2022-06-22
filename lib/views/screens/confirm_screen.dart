@@ -37,13 +37,6 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
   }
 
   @override
-  void dispose() {
-    //
-    super.dispose();
-    controller.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -62,6 +55,20 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                    Container(
+                      
+                    width: MediaQuery.of(context).size.width - 20,
+                    child: ElevatedButton(
+                      
+                      child: Text('Share Your Location'),
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+
+                      )
+                    ),
+                  ),
+
                   Container(
                     width: MediaQuery.of(context).size.width - 20,
                     margin: EdgeInsets.symmetric(horizontal: 10),
@@ -92,16 +99,42 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                   SizedBox(
                     height: 10,
                   ),
+
+
+
+                  /*SimpleDialogOption(
+                  onPressed: () 
+                  child: Row(
+                    children: [
+                      Icon(Icons.location_city),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Location ',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                  SizedBox(
+                    height: 10,
+                  ),*/
                   ElevatedButton(
+                     
                     onPressed: () => uploadVideoController.uploadVideo(
                         _songController.text,
                         _captionController.text,
-                        widget.videoPath),
-                    child: Text(
-                      'Share',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                        widget.videoPath,
+                        ),
+                       
+                    child: Text('Share'),
+
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                      ),
                     ),
-                  ),
+                  
                 ],
               ),
             )

@@ -6,6 +6,7 @@ import 'package:firebase_crud_app/views/screens/confirm_screen_photo.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+//main add-photo-video screen
 class AddVideoScreen extends StatelessWidget {
   pickVideo(ImageSource src, BuildContext context) async {
     final video = await ImagePicker().pickVideo(source: src);
@@ -17,12 +18,12 @@ class AddVideoScreen extends StatelessWidget {
   }
 
   pickPhoto(ImageSource src, BuildContext context) async {
-    final video = await ImagePicker().pickImage(source: src);
-    if (video != null) {
+    final photo = await ImagePicker().pickImage(source: src);
+    if (photo != null) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => ConfirmScreenPhoto(
-                videoFile: File(video.path),
-                videoPath: video.path,
+                photoFile: File(photo.path),
+                photoPath: photo.path,
               )));
     }
   }
@@ -90,7 +91,7 @@ class AddVideoScreen extends StatelessWidget {
                   /*onPressed: () async{
                     String photo= pickPhoto(ImageSource.gallery, context);
                      },*/
-                     onPressed: () => authController.pickImage(),
+                  onPressed: () => authController.pickImage(),
                   child: Row(
                     children: [
                       Icon(Icons.image),
@@ -107,7 +108,7 @@ class AddVideoScreen extends StatelessWidget {
                 SimpleDialogOption(
                   //onPressed: () => pickPhoto(ImageSource.camera, context),
                   onPressed: () => authController.pickImage(),
-                  
+
                   child: Row(
                     children: [
                       Icon(Icons.camera_alt),

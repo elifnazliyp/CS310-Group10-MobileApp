@@ -59,7 +59,67 @@ class Video {
       videoUrl: snapshot['videoUrl'],
       profilePhoto: snapshot['profilePhoto'],
       thumbnail: snapshot['thumbnail'],
-     // topics: snapshot['topics'],
+      // topics: snapshot['topics'],
+    );
+  }
+}
+
+class Photo {
+  String username;
+  String uid;
+  String id;
+  List likes;
+  int commentCount;
+  int shareCount;
+  String PhotoName;
+  String caption;
+  String thumbnail;
+  String profilePhoto;
+  //List topics;
+
+  Photo({
+    required this.username,
+    required this.uid,
+    required this.id,
+    required this.likes,
+    required this.commentCount,
+    required this.shareCount,
+    required this.PhotoName,
+    required this.caption,
+    required this.profilePhoto,
+    required this.thumbnail,
+    //required this.topics,
+  });
+
+  Map<String, dynamic> toJson() => {
+        "username": username,
+        "uid": uid,
+        "profilePhoto": profilePhoto,
+        "id": id,
+        "likes": likes,
+        "commentCount": commentCount,
+        "shareCount": shareCount,
+        "PhotoName": PhotoName,
+        "caption": caption,
+        "thumbnail": thumbnail,
+        //"topics": topics,
+      };
+
+  static Photo fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+
+    return Photo(
+      username: snapshot['username'],
+      uid: snapshot['uid'],
+      id: snapshot['id'],
+      likes: snapshot['likes'],
+      commentCount: snapshot['commentCount'],
+      shareCount: snapshot['shareCount'],
+      PhotoName: snapshot['PhotoName'],
+      caption: snapshot['caption'],
+      profilePhoto: snapshot['profilePhoto'],
+      thumbnail: snapshot['thumbnail'],
+      // topics: snapshot['topics'],
     );
   }
 }

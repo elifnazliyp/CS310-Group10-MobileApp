@@ -1,4 +1,3 @@
-
 import 'package:firebase_crud_app/models/user.dart';
 import 'package:firebase_crud_app/views/screens/widgets/firebase_api.dart';
 import 'package:firebase_crud_app/views/screens/widgets/chat_header_widget.dart';

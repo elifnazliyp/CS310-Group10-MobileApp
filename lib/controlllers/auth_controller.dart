@@ -51,6 +51,26 @@ class AuthController extends GetxController {
     return downloadUrl;
   }
 
+  void pickPhoto() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      Get.snackbar('Not profile picture', 'Not so very Nice');
+    }
+    _pickedImage = Rx<File?>(File(pickedImage!.path));
+  }
+
+  //upload to firebaseStorage
+
+  Future<String> _uploadToStorage2(File image) async {
+    Reference ref =
+        firebaseStorage.ref('Photo').child(firebaseAuth.currentUser!.uid);
+    UploadTask uploadTask = ref.putFile(image);
+    TaskSnapshot snap = await uploadTask;
+    String downloadUrl = await snap.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
   void registerUser(
       String username, String email, String password, File? image) async {
     try {
@@ -102,61 +122,48 @@ class AuthController extends GetxController {
 
   //sould update?
 
-  void updateUsername(String username) async{
-
-
+  void updateUsername(String username) async {
     try {
-      
-      
-    
-      if(username.isNotEmpty){
+      if (username.isNotEmpty) {
         await user.updateDisplayName(username);
-
-      } else{
+      } else {
         Get.snackbar('Error updating', 'Please enter all fieds');
       }
     } catch (e) {
       Get.snackbar('Error updating', e.toString());
     }
   }
-  void updatePassword(String password) async{
 
-
+  void updatePassword(String password) async {
     try {
-
-      if(password.isNotEmpty){
+      if (password.isNotEmpty) {
         await user.updatePassword(password);
-
-      } else{
+      } else {
         Get.snackbar('Error updating', 'Please enter all fieds');
       }
     } catch (e) {
       Get.snackbar('Error updating', e.toString());
     }
   }
-  void updatePhoto(File? image) async{
 
+  void updatePhoto(File? image) async {
     String downloadUrl = await _uploadToStorage(image!);
     try {
-
-      if(image!=null){
+      if (image != null) {
         await user.updatePhotoURL(downloadUrl);
-
-      } else{
+      } else {
         Get.snackbar('Error updating', 'Please enter all fieds');
       }
     } catch (e) {
       Get.snackbar('Error updating', e.toString());
     }
   }
-  void deletecurrentUser() async{
 
+  void deletecurrentUser() async {
     try {
       await user.delete();
-
     } catch (e) {
       Get.snackbar('Error deleting', e.toString());
     }
   }
 }
-
