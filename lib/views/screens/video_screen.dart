@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
@@ -14,14 +15,30 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_crud_app/models/user.dart' as model;
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+ import 'package:location/location.dart';
+ import 'package:flutter/services.dart';
+
+ import 'package:geolocator/geolocator.dart';
+
+import 'package:geocoding/geocoding.dart';
 //import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 
-class VideoScreen extends StatelessWidget {
+class VideoScreen extends StatefulWidget {
+  @override
+  State<VideoScreen> createState() => _VideoScreenState();
+
+
+}
+
+class _VideoScreenState extends State<VideoScreen> {
+  String Address = 'search';
+
   final VideoController videoController = Get.put(VideoController());
 
-   
-
+  //String Address = 'search';
   buildProfie(String profilePhoto) {
     return SizedBox(
       width: 60,
@@ -79,9 +96,6 @@ Future sendEmail({
 
 }
 
-
-
-
   buildMusicAlbum(String profilePhoto) {
     return SizedBox(
       width: 60,
@@ -111,8 +125,47 @@ Future sendEmail({
     );
   }
 
+  
+
+  Future<void> GetAddressFromLatLong(double lat, double lon) async {
+    if(lat != nullptr){
+      List<Placemark> placemarks = await placemarkFromCoordinates(lat, lon);
+      
+      print('reached here2 ');
+      Placemark place = placemarks[0];
+      print('reached here ');
+      print('the street is ' + place.street.toString());
+      Address =
+          '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+      }
+      setState(() {});
+      
+    
+  }
+
+  _getAddressFromLatLng(double lat, double lon) async {
+    if(lat != nullptr){
+      try {
+        List<Placemark> placemarks = await placemarkFromCoordinates(
+          lat,
+          lon
+        );
+
+        Placemark place = placemarks[0];
+
+        setState(() {
+          Address =
+            '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    
     final size = MediaQuery.of(context).size;
     final user = FirebaseAuth.instance.currentUser;
     final name = user?.displayName;
@@ -120,6 +173,7 @@ Future sendEmail({
 
     final email = user?.displayName;
     String email2 = email.toString();
+    
 
     return Scaffold(
       body: Obx(() {
@@ -129,8 +183,13 @@ Future sendEmail({
           controller: PageController(initialPage: 0, viewportFraction: 1),
           itemBuilder: (context, index) {
             final data = videoController.videoList[index];
+            
+            if(data.Address != null)
+            print('${Address}');
             return Stack(
               children: [
+                
+
                 VideoPlayerItem(videoUrl: data.videoUrl),
                 Column(
                   children: [
@@ -143,6 +202,7 @@ Future sendEmail({
                       children: [
                         Expanded(
                           child: Container(
+                            
                             padding: EdgeInsets.only(left: 20),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -179,7 +239,27 @@ Future sendEmail({
                                       ),
                                     ),
                                   ],
-                                )
+                                ),
+                                if(data.Address != null)
+                                  Row(
+                                    children: [
+                                      
+                                      
+                                      
+                                      Icon(
+                                        Icons.location_city,
+                                        size: 15,
+                                        color: Colors.white,
+                                      ),
+                                      Text(
+                                        data.Address.toString(),
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                               ],
                             ),
                           ),

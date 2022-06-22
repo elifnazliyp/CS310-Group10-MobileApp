@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
+
 class ConfirmScreenPhoto extends StatefulWidget {
   final File photoFile;
   final String photoPath;
@@ -23,6 +24,8 @@ class _ConfirmScreenPhotoState extends State<ConfirmScreenPhoto> {
   
   final TextEditingController _songController = TextEditingController();
   final TextEditingController _captionController = TextEditingController();
+  final TextEditingController lon = TextEditingController();
+  final TextEditingController lat = TextEditingController();
   UploadVideoController uploadVideoController =
       Get.put(UploadVideoController());
 
@@ -119,6 +122,7 @@ class _ConfirmScreenPhotoState extends State<ConfirmScreenPhoto> {
                     onPressed: () => uploadVideoController.uploadPhoto(
                         _songController.text,
                         _captionController.text,
+                        
                         widget.photoPath),
                     child: Text('Share'),
                       style: ElevatedButton.styleFrom(

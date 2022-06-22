@@ -12,6 +12,7 @@ class Video {
   String videoUrl;
   String thumbnail;
   String profilePhoto;
+  String? Address;
   //List topics;
 
   Video({
@@ -26,6 +27,7 @@ class Video {
     required this.videoUrl,
     required this.profilePhoto,
     required this.thumbnail,
+    this.Address,
     //required this.topics,
   });
 
@@ -41,6 +43,8 @@ class Video {
         "caption": caption,
         "videoUrl": videoUrl,
         "thumbnail": thumbnail,
+        "Address": Address,
+
         //"topics": topics,
       };
 
@@ -59,6 +63,7 @@ class Video {
       videoUrl: snapshot['videoUrl'],
       profilePhoto: snapshot['profilePhoto'],
       thumbnail: snapshot['thumbnail'],
+      Address: snapshot['Address']
       // topics: snapshot['topics'],
     );
   }
