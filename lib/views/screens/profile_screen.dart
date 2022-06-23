@@ -166,7 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             name: name2 ,
                             email: email2,
                             subject: ' report user',
-                            message: 'Hello, We detected that the user ' + 'reported by the ' + name2 
+                            message: 'Hello, We detected that the user ' + widget.uid + ' reported by the ' + authController.user.uid 
                              + ' It is necessary to investigate the content that disrupts the necessary social structure and integrity on the subject and to process the post in the near future so that it can be deleted if necessary.',) ,
                 
                         ),
