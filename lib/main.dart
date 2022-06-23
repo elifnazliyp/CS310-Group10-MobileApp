@@ -7,6 +7,7 @@ import 'package:firebase_crud_app/views/auth/sign_up.dart';
 import 'package:firebase_crud_app/views/screens/HashtagScreen.dart';
 
 import 'package:firebase_crud_app/views/screens/home_screen.dart';
+import 'package:firebase_crud_app/views/screens/location_search.dart';
 import 'package:firebase_crud_app/views/screens/profile_edit_screen.dart';
 import 'package:firebase_crud_app/views/screens/search_screen.dart';
 
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         "/TopicSearch" : (context) => TopicSearch(),
         "/SearchScreen" : (context) => SearchScreen(), 
         "/HashtagScreen" : (context) => HashtagScreen(),
+        "/LocationSearch" : (context) => LocationSeach(), 
         
         //"/SingleVideo" : (context) => single_Video(str),
         //"/report" : (context) => report(),

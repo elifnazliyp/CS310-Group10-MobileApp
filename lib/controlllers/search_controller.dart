@@ -153,4 +153,22 @@ class SearchController extends GetxController {
     );
   }
 
+    searchLocation(String typeLocation) async {
+    _searchedVideos.bindStream(
+      firebaseStore
+          .collection('videos')
+          .where('Address', isLessThanOrEqualTo: typeLocation)
+          .snapshots()
+          .map(
+            (QuerySnapshot query) {
+          List<Video> retVal = [];
+          for (var elem in query.docs) {
+            retVal.add(Video.fromSnap(elem));
+          }
+          return retVal;
+        },
+      ),
+    );
+  }
+
 }

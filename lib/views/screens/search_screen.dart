@@ -19,11 +19,13 @@ class _SearchScreenState extends State<SearchScreen> {
     return Obx(() {
       return Scaffold(
         appBar: AppBar(
-            leading: IconButton(
-            icon: Icon(Icons.topic),
+            leading: 
+            IconButton(
+            icon: Icon(Icons.arrow_left),
             onPressed:() {
-            Navigator.pushNamed(context, "/TopicSearch");
+            Navigator.pushNamed(context, "/HomePage");
           } ,),
+         
           
           backgroundColor: Colors.red,
           title: TextFormField(
@@ -42,7 +44,23 @@ class _SearchScreenState extends State<SearchScreen> {
             onPressed:() {
             Navigator.pushNamed(context, "/HashtagScreen");
           } ,),
+
+          IconButton(
+            icon: Icon(Icons.location_city),
+            onPressed:() {
+            Navigator.pushNamed(context, "/LocationSearch");
+          } ,),
+
+         
+
+          IconButton(
+            icon: Icon(Icons.topic),
+            onPressed:() {
+            Navigator.pushNamed(context, "/TopicSearch");
+          } ,),
+
           ],
+        
         ),
         body: searchController.searchedUsers.isEmpty
             ? Center(
