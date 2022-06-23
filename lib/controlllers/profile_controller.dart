@@ -15,6 +15,8 @@ class ProfileController extends GetxController {
 
   getUserData() async {
     List<String> thumbnails = [];
+    List<String> videoUrl = [];
+    List<String> videoID = [];
     var myVideos = await firebaseStore
         .collection('videos')
         .where('uid', isEqualTo: _uid.value)
@@ -22,6 +24,8 @@ class ProfileController extends GetxController {
 
     for (int i = 0; i < myVideos.docs.length; i++) {
       thumbnails.add((myVideos.docs[i].data() as dynamic)['thumbnail']);
+      videoUrl.add((myVideos.docs[i].data() as dynamic)['videoUrl']);
+      videoID.add((myVideos.docs[i].data() as dynamic)['id']);
     }
 
     DocumentSnapshot userDoc =
@@ -80,6 +84,8 @@ class ProfileController extends GetxController {
       'profilePhoto': profilePhoto,
       'name': name,
       'thumbnails': thumbnails,
+      'videoUrl': videoUrl,
+      'videoID': videoID
 
     };
     update();

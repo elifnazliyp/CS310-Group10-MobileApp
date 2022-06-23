@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/profile_controller.dart';
 import 'package:firebase_crud_app/views/screens/bookmark.dart';
+import 'package:firebase_crud_app/views/screens/single_video2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_crud_app/controlllers/search_controller.dart';
@@ -358,25 +359,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         crossAxisSpacing: 5
                       ),
                       
-
+                      
                       itemBuilder: (context, index) {
+                        
                         
                         
                         String thumbnail =
                           controller.user['thumbnails'][index];
+                        String video =
+                          controller.user['videoUrl'][index];
+                        String name = 
+                          controller.user['name'][index];
+                        String id = 
+                          controller.user['videoID'][index];
                         return InkWell(
                           child: Container(
                             child: Image.network(
                               thumbnail,
                               fit: BoxFit.cover,
-                              
                             ),
                             
                             
                           ),
                           onTap: (){
-                            
-                              print(controller.user['thumbnails'][index].toString());
+                          
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => single_Video2(item_type: video, id: id, name: name,),
+                              ),
+                            );
+
+                              Navigator.pushNamed(context,  "/SingleVideo");
+                              
                             },
                         );
                       } 
