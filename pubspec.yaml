@@ -36,6 +36,8 @@ dependencies:
     sdk: flutter
   flutter_slidable: ^0.6.0
   flutter_svg: ^1.0.3
+  geocoding: ^2.0.4
+  geolocator: ^8.2.1
   get: ^4.6.1
   google_fonts: ^3.0.0
   http: ^0.13.4
@@ -49,6 +51,9 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
+  location:
+  geolocator: ^8.2.1
+  geocoding: ^2.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

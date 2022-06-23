@@ -189,6 +189,25 @@ Future sendEmail({
                                       ),
                                     ),
                                   ],
+                                ),
+                                Row(
+                                  children: [
+
+                                    Icon(
+                                      Icons.location_city,
+                                      size: 15,
+                                      color: Colors.white,
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        data.Address.toString(),
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 )
                               ],
                             ),
@@ -279,7 +298,6 @@ Future sendEmail({
                             
                                   InkWell(                                   
                                       onTap: () => videoController.bookmarkVideo(data.id),
-                                      
                                     child: Icon(
                                       Icons.bookmark,
                                       size: 40,

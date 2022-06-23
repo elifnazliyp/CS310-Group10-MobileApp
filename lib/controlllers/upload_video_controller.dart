@@ -66,6 +66,49 @@ class UploadVideoController extends GetxController {
         thumbnail: thumbnail,
         isSaved: [],
         topics: topics,
+        Address: null,
+      );
+
+      await firebaseStore.collection('videos').doc('Video $len').set(
+            video.toJson(),
+          );
+      Get.back();
+    } catch (e) {
+      Get.snackbar(
+        'Error Uploading Video',
+        e.toString(),
+      );
+    }
+  }
+
+  uploadVideo_with_loc(String songName, String caption, String? Address, String videoPath) async {
+    try {
+      String uid = firebaseAuth.currentUser!.uid;
+      DocumentSnapshot userDoc =
+          await firebaseStore.collection('users').doc(uid).get();
+      // get id
+      var allDocs = await firebaseStore.collection('videos').get();
+      int len = allDocs.docs.length;
+      String videoUrl = await _uploadVideoToStorage("Video $len", videoPath);
+      String thumbnail = await _uploadImageToStorage("Video $len", videoPath);
+      List topics = caption.split(" ");
+      topics.removeWhere((item) => item[0]!= "#");
+      
+      Video video = Video(
+        username: (userDoc.data()! as Map<String, dynamic>)['name'],
+        uid: uid,
+        id: "Video $len",
+        likes: [],
+        commentCount: 0,
+        shareCount: 0,
+        songName: songName,
+        caption: caption,
+        videoUrl: videoUrl,
+        profilePhoto: (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
+        thumbnail: thumbnail,
+        isSaved: [],
+        topics: topics,
+        Address: Address,
       );
 
       await firebaseStore.collection('videos').doc('Video $len').set(
