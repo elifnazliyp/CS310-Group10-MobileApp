@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crud_app/constants/constants.dart';
 import 'package:firebase_crud_app/controlllers/profile_controller.dart';
 import 'package:firebase_crud_app/views/screens/bookmark.dart';
@@ -7,6 +10,8 @@ import 'package:firebase_crud_app/controlllers/search_controller.dart';
 import 'package:firebase_crud_app/views/screens/following_screen.dart';
 
 import 'followers_screen.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
@@ -16,6 +21,38 @@ class ProfileScreen extends StatefulWidget {
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
+
+Future sendEmail({
+  required String name,
+  required String email,
+  required String subject,
+  required String message,
+}) async{
+  final serviceId = 'service_gmeqpkt';
+  final templateId = 'template_4n6ni29';
+  final userId = 'LZvrKJHON3Sd3kaJS';
+  final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+  final response = await http.post(
+    url,
+    headers: {
+      'origin': 'http://localhost',
+      'Content-Type': 'application/json',
+    },
+    body: json.encode({
+      'service_id' : serviceId,
+      'template_id' : templateId,
+      'user_id' : userId,
+      'template_params': {
+      'username': name,
+      'user_email': email,
+      'user_subject': subject,
+      'user_message': message,
+      }
+    }),
+  );
+
+}
+
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final ProfileController profileController = Get.put(ProfileController());
@@ -27,6 +64,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final user = FirebaseAuth.instance.currentUser;
+    final name = user?.displayName;
+    String name2 = name.toString();
+
+    final email = user?.displayName;
+    String email2 = email.toString();
+
     return GetBuilder<ProfileController>(
         init: ProfileController(),
         builder: (controller) {
@@ -39,9 +84,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
             appBar: widget.uid == authController.user.uid
                 ? AppBar(
               backgroundColor: Colors.black12,
-              leading: Icon(
-                Icons.person,
+              leading: IconButton ( icon: Icon(
+                Icons.report,
               ),
+              onPressed: () {
+                   showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context)=>AlertDialog(  
+                        title: Text('Report User'),  
+                        content: const Text(  
+                            'You cannot report yourself.'),  
+                        actions: <Widget>[  
+                          TextButton(  
+                            child: const Text('Okay'),  
+                            onPressed: () => Navigator.of(context).pop(),
+
+                          ),  
+                        ]
+                      ),
+                    );
+                  },
+                ),
+
               actions: [
       
                 IconButton(
@@ -80,9 +144,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
             )
                 : AppBar(
               backgroundColor: Colors.black12,
-              leading: Icon(
-                Icons.person,
+              leading: IconButton ( icon: Icon(
+                Icons.report,
               ),
+              onPressed: () {
+                showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context)=> AlertDialog(  
+                      title: Text('Report This User?'),  
+                      content: const Text(  
+                          'Thanks for reporting this user. We will review the post'),  
+                      actions: <Widget>[  
+                        TextButton(  
+                          child: const Text('Cancel'),  
+                          onPressed: () => Navigator.of(context).pop(),
+
+                        ),  
+                        TextButton(  
+                          child: const Text('Okay'),  
+                          onPressed:() => sendEmail(
+                            name: name2 ,
+                            email: email2,
+                            subject: ' report user',
+                            message: 'Hello, We detected that the user ' + 'reported by the ' + name2 
+                             + ' It is necessary to investigate the content that disrupts the necessary social structure and integrity on the subject and to process the post in the near future so that it can be deleted if necessary.',) ,
+                
+                        ),
+
+                      ]
+                    ),
+                  );
+                  
+                
+                  },
+                ),
               title: Text(
                 controller.user['name'],
                 style: TextStyle(
